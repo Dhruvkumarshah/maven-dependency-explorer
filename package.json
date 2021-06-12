@@ -1,6 +1,6 @@
 {
-  "name": "maven-depencency-explorer",
-  "displayName": "maven-depencency-explorer",
+  "name": "maven-dependency-explorer",
+  "displayName": "Maven dependency explorer",
   "description": "Explore depency of java maven project",
   "version": "0.0.1",
   "engines": {
@@ -10,13 +10,13 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:maven-depencency-explorer.exploer"
+    "onCommand:maven-dependency-explorer.exploer"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "maven-depencency-explorer.exploer",
+        "command": "maven-dependency-explorer.exploer",
         "title": "Maven dependency explorer"
       }
     ]
