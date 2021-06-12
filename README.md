@@ -1,6 +1,6 @@
-# maven-depencency-explorer README
+# maven-dependency-explorer README
 
-This is the "maven-depencency-explorer" vscode extension.
+This is the "maven-dependency-explorer" vscode extension.
 
 ## Features
 
