@@ -2,7 +2,9 @@
   "name": "maven-dependency-explorer",
   "displayName": "Maven dependency explorer",
   "description": "Explore depency of java maven project",
-  "version": "0.0.1",
+  "repository": "https://github.com/Dhruvkumarshah/maven-dependency-explorer.git",
+  "version": "1.0.0",
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.57.0"
   },
