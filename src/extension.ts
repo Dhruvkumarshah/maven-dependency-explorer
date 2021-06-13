@@ -1,9 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
-import * as cp from 'child_process';
-const fs = require('fs');
-var dot = require('graphlib-dot');
+import * as vscode from "vscode";
+import * as cp from "child_process";
+const fs = require("fs");
+var dot = require("graphlib-dot");
 
 const execShell = (cmd: string) =>
   new Promise<string>((resolve, reject) => {
@@ -36,11 +36,11 @@ export function activate(context: vscode.ExtensionContext) {
   // This line of code will only be executed once when your extension is activated
 
   let disposableExplorer = vscode.commands.registerCommand(
-    'maven-dependency-explorer.exploer',
+    "maven-dependency-explorer.exploer",
     async () => {
       const tempFile = vscode.Uri.joinPath(
         context.extensionUri,
-        'dependency-tree.dot'
+        "dependency-tree.dot"
       ).path;
       const currentDir =
         vscode.workspace?.workspaceFolders !== undefined
@@ -48,30 +48,12 @@ export function activate(context: vscode.ExtensionContext) {
           : undefined;
 
       if (!currentDir) {
-        vscode.window.showErrorMessage('Something went wrong!');
+        vscode.window.showErrorMessage("Something went wrong!");
       }
 
-      await execShell(
-        `mvn -f ${currentDir}/pom.xml dependency:tree -DoutputFile=${tempFile} -DoutputType=dot`
-      );
-
-      var digraph = dot.read(fs.readFileSync(tempFile, 'UTF-8'));
-
-      let graph: any = {};
-
-      digraph.edges().forEach((edge: any) => {
-        const w = edge.w;
-        graph[edge.v] = graph[edge.v] ? {...graph[edge.v], [w]: {}} : {[w]: {}};
-      });
-
-      Object.keys(graph)
-        .reverse()
-        .forEach(function (index) {
-          updateGrpah(index, graph);
-        });
       const panel = vscode.window.createWebviewPanel(
-        'openWebview', // Identifies the type of the webview. Used internally
-        'POM Explorer', // Title of the panel displayed to the user
+        "openWebview", // Identifies the type of the webview. Used internally
+        "POM Explorer", // Title of the panel displayed to the user
         vscode.ViewColumn.One, // Editor column to show the new webview panel in.
         {
           // Enable scripts in the webview
@@ -84,7 +66,36 @@ export function activate(context: vscode.ExtensionContext) {
         context.extensionUri
       );
 
-      panel.webview.postMessage(graph);
+      try {
+        await execShell(`java --version`);
+        await execShell(`mvn --version`);
+        await execShell(
+          `mvn -f ${currentDir}/pom.xml dependency:tree -DoutputFile=${tempFile} -DoutputType=dot`
+        );
+
+        var digraph = dot.read(fs.readFileSync(tempFile, "UTF-8"));
+
+        let graph: any = {};
+
+        digraph.edges().forEach((edge: any) => {
+          const w = edge.w;
+          graph[edge.v] = graph[edge.v]
+            ? { ...graph[edge.v], [w]: {} }
+            : { [w]: {} };
+        });
+
+        Object.keys(graph)
+          .reverse()
+          .forEach(function (index) {
+            updateGrpah(index, graph);
+          });
+
+        panel.webview.postMessage(graph);
+      } catch (e) {
+        vscode.window.showErrorMessage(`${e}`);
+        panel.dispose();
+        return;
+      }
     }
   );
 
@@ -92,10 +103,10 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
-  const styles = vscode.Uri.joinPath(extensionUri, 'media', 'style.css');
+  const styles = vscode.Uri.joinPath(extensionUri, "media", "style.css");
   const stylesURI = webview.asWebviewUri(styles);
 
-  const script = vscode.Uri.joinPath(extensionUri, 'media', 'script.js');
+  const script = vscode.Uri.joinPath(extensionUri, "media", "script.js");
   const scriptUri = webview.asWebviewUri(script);
 
   const nonce = getNonce();
@@ -124,17 +135,17 @@ function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-       <!-- <li class="nav-item ml-5">
+       <li class="nav-item ml-5">
           <button type="button" class="btn btn-primary" id="expand">
             Expand
           </button>
         </li>
-
-        <li class="nav-item ml-2">
+      
+        <li class="nav-item ml-3">
           <button type="button" class="btn btn-primary" id="collapse">
             Collapse
           </button>
-        </li> -->
+        </li>
       </ul> 
       <div class="form-inline my-2 my-lg-0">
         <input
@@ -149,6 +160,12 @@ function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
 
   <br />
   <div class="container-fluid">
+
+    <div id="spinner">
+        <div class="spinner-grow" style="width: 5rem; height: 5rem;">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     <div class="row">
       <div class="col">
         <ul id="graph" class="list-group"></ul>
@@ -164,9 +181,9 @@ function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
 }
 
 function getNonce() {
-  let text = '';
+  let text = "";
   const possible =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (let i = 0; i < 32; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }

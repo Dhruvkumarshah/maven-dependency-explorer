@@ -19,11 +19,18 @@ This extension contributes the following settings (Command + Shift + p):
 
 ## Known Issues
 
-Currently enter key on Webview bracks the webview.
+Currently enter key on Webview break the webview.
 
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
+
+### 1.0.6
+
+- Added Expand/Collapse functionality
+- Added Spinner until dependency tree generated.
+- Override Command + F key to change focus to input box.
+- Fixed caret up/down logic
 
 ### 1.0.5
 

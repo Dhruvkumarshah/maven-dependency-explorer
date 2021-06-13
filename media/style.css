@@ -3,15 +3,10 @@ ul,
   list-style-type: none;
 }
 
-#myUL {
-  /* margin: 0;
-  padding: 0; */
-}
-
-/* .caret {
+.caret {
   cursor: pointer;
   user-select: none;
-} */
+}
 
 .caret::before {
   content: '\25B6';
@@ -20,12 +15,12 @@ ul,
   margin-right: 6px;
 }
 
-/* .caret-down::before {
+.caret-down::before {
   transform: rotate(90deg);
-} */
+}
 
 .nested {
-  /* display: none; */
+  display: none;
 }
 
 .active {
@@ -61,4 +56,19 @@ ul.nested li:before {
   content: '';
   display: inline-block;
   left: -7px;
+}
+
+#spinner {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input {
+  transform: scale(1);
+}
+
+input:focus {
+  transform: scale(1.2);
 }
