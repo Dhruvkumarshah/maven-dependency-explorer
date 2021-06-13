@@ -36,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
   // This line of code will only be executed once when your extension is activated
 
   let disposableExplorer = vscode.commands.registerCommand(
-    'maven-depencency-explorer.exploer',
+    'maven-dependency-explorer.exploer',
     async () => {
       const tempFile = vscode.Uri.joinPath(
         context.extensionUri,

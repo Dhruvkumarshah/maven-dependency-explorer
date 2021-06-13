@@ -29,5 +29,13 @@ Users appreciate release notes as you update your extension.
 
 Initial release of maven dependency explorer.
 
+### 1.0.1
+
+Corrected spell.
+
+### 1.0.2
+
+Fixed missing activationEvents issue.
+
 ---
 
