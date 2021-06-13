@@ -83,7 +83,7 @@ export function activate(context: vscode.ExtensionContext) {
         panel.webview,
         context.extensionUri
       );
-      
+
       panel.webview.postMessage(graph);
     }
   );
@@ -123,8 +123,8 @@ function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
     <a class="navbar-brand" href="#">Maven Dependency Explorer</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!--  <ul class="navbar-nav mr-auto">
-        <li class="nav-item ml-5">
+    <ul class="navbar-nav mr-auto">
+       <!-- <li class="nav-item ml-5">
           <button type="button" class="btn btn-primary" id="expand">
             Expand
           </button>
@@ -134,16 +134,16 @@ function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
           <button type="button" class="btn btn-primary" id="collapse">
             Collapse
           </button>
-        </li>
-      </ul> -->
-      <form class="form-inline my-2 my-lg-0">
+        </li> -->
+      </ul> 
+      <div class="form-inline my-2 my-lg-0">
         <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          id="input"
-        />
-      </form>
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        id="input"
+      />
+      </div>
     </div>
   </nav>
 

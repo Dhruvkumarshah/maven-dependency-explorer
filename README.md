@@ -25,6 +25,10 @@ Currently enter key on Webview bracks the webview.
 
 Users appreciate release notes as you update your extension.
 
+### 1.0.5
+
+Fixed webview crash when tapping enter on input box.
+
 ### 1.0.4
 
 Added Maven dependency explorer to top-right side menu when filename is pom.xml.
