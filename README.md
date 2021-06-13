@@ -25,17 +25,25 @@ Currently enter key on Webview bracks the webview.
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 1.0.4
 
-Initial release of maven dependency explorer.
+Added Maven dependency explorer to top-right side menu when filename is pom.xml.
+
+### 1.0.3
+
+Fixed crash.
+
+### 1.0.2
+
+Fixed missing activationEvents issue.
 
 ### 1.0.1
 
 Corrected spell.
 
-### 1.0.2
+### 1.0.0
 
-Fixed missing activationEvents issue.
+Initial release of maven dependency explorer.
 
 ---
 

@@ -3,7 +3,7 @@
   "displayName": "Maven dependency explorer",
   "description": "Explore depency of java maven project",
   "repository": "https://github.com/Dhruvkumarshah/maven-dependency-explorer.git",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.57.0"
@@ -21,7 +21,16 @@
         "command": "maven-dependency-explorer.exploer",
         "title": "Maven dependency explorer"
       }
-    ]
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceFilename == pom.xml",
+          "command": "maven-dependency-explorer.exploer",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
