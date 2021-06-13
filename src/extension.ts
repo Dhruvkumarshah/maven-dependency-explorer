@@ -71,7 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
         });
       const panel = vscode.window.createWebviewPanel(
         'openWebview', // Identifies the type of the webview. Used internally
-        'Example Page', // Title of the panel displayed to the user
+        'POM Explorer', // Title of the panel displayed to the user
         vscode.ViewColumn.One, // Editor column to show the new webview panel in.
         {
           // Enable scripts in the webview
@@ -83,14 +83,8 @@ export function activate(context: vscode.ExtensionContext) {
         panel.webview,
         context.extensionUri
       );
-
+      
       panel.webview.postMessage(graph);
-
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage(
-        'Hello World from maven-depencency-explorer!'
-      );
     }
   );
 
