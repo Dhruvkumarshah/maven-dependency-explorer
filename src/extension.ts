@@ -103,8 +103,16 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
-  const styles = vscode.Uri.joinPath(extensionUri, "media", "style.css");
+  const styles = vscode.Uri.joinPath(extensionUri, "media", "css", "style.css");
   const stylesURI = webview.asWebviewUri(styles);
+
+  const bootstrapStyle = vscode.Uri.joinPath(
+    extensionUri,
+    "media",
+    "css",
+    "bootstrap.min.css"
+  );
+  const bootstrapStyleURI = webview.asWebviewUri(bootstrapStyle);
 
   const script = vscode.Uri.joinPath(extensionUri, "media", "script.js");
   const scriptUri = webview.asWebviewUri(script);
@@ -119,12 +127,7 @@ function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri) {
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
+    <link href="${bootstrapStyleURI}" rel="stylesheet">
     <link href="${stylesURI}" rel="stylesheet">
 
     <title>Maven Dependency Explorer</title>

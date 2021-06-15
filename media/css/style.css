@@ -31,6 +31,10 @@ ul,
   display: none;
 }
 
+.navbar-dark {
+  /* background-color: rgb(37, 37, 38) !important; */
+}
+
 .vscode-dark,
 .list-group-item {
   background-color: rgb(37, 37, 38);

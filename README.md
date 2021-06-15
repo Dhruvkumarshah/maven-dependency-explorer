@@ -19,11 +19,15 @@ This extension contributes the following settings (Command + Shift + p):
 
 ## Known Issues
 
-Currently enter key on Webview break the webview.
+None.
 
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
+
+### 1.0.7
+
+- localized the bootstrap
 
 ### 1.0.6
 
