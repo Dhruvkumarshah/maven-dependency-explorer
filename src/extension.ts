@@ -112,12 +112,14 @@ export function activate(context: vscode.ExtensionContext) {
         );
 
         currentPanel.onDidDispose(
-          () =>
+          () => {
+            currentPanel = undefined;
             fs.unlink(tempFile, (e: Error) => {
               if (e) {
                 vscode.window.showErrorMessage(`${e}`);
               }
-            }),
+            });
+          },
           null,
           context.subscriptions
         );
