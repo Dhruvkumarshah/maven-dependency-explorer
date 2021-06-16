@@ -83,6 +83,9 @@
     }
 
     function loadDependency(graph) {
+      const key = Object.keys(graph)[0];
+      delete graph[key];
+      console.log(graph);
       var ul = document.getElementById("graph");
 
       var listitem = document.getElementById("listitem");

@@ -25,6 +25,12 @@ None.
 
 Users appreciate release notes as you update your extension.
 
+### 1.0.8
+
+- Clean up on webview destroy
+- Setting up webview when become active from background
+- Removed first entry in pom tree which is project group & artifact id.
+
 ### 1.0.7
 
 - localized the bootstrap

@@ -32,12 +32,25 @@ function updateGrpah(index: any, data: any) {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  // Track currently webview panel
+  let currentPanel: vscode.WebviewPanel | undefined = undefined;
+
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
 
   let disposableExplorer = vscode.commands.registerCommand(
     "maven-dependency-explorer.exploer",
     async () => {
+      const columnToShowIn = vscode.window.activeTextEditor
+        ? vscode.window.activeTextEditor.viewColumn
+        : undefined;
+
+      if (currentPanel) {
+        // If we already have a panel, show it in the target column
+        currentPanel.reveal(columnToShowIn);
+        return;
+      }
+
       const tempFile = vscode.Uri.joinPath(
         context.extensionUri,
         "dependency-tree.dot"
@@ -51,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showErrorMessage("Something went wrong!");
       }
 
-      const panel = vscode.window.createWebviewPanel(
+      currentPanel = vscode.window.createWebviewPanel(
         "openWebview", // Identifies the type of the webview. Used internally
         "POM Explorer", // Title of the panel displayed to the user
         vscode.ViewColumn.One, // Editor column to show the new webview panel in.
@@ -61,8 +74,8 @@ export function activate(context: vscode.ExtensionContext) {
         }
       );
 
-      panel.webview.html = getWebviewContent(
-        panel.webview,
+      currentPanel.webview.html = getWebviewContent(
+        currentPanel.webview,
         context.extensionUri
       );
 
@@ -90,10 +103,27 @@ export function activate(context: vscode.ExtensionContext) {
             updateGrpah(index, graph);
           });
 
-        panel.webview.postMessage(graph);
+        currentPanel.webview.postMessage(graph);
+
+        currentPanel.onDidChangeViewState(
+          (e) => e.webviewPanel.webview.postMessage(graph),
+          null,
+          context.subscriptions
+        );
+
+        currentPanel.onDidDispose(
+          () =>
+            fs.unlink(tempFile, (e: Error) => {
+              if (e) {
+                vscode.window.showErrorMessage(`${e}`);
+              }
+            }),
+          null,
+          context.subscriptions
+        );
       } catch (e) {
         vscode.window.showErrorMessage(`${e}`);
-        panel.dispose();
+        currentPanel.dispose();
         return;
       }
     }
