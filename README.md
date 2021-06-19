@@ -24,6 +24,10 @@ None.
 
 Users appreciate release notes as you update your extension.
 
+### 1.0.10
+
+- bug fixed (path was not working correctly for Window.)
+
 ### 1.0.9
 
 - bug fixed (set current webview to undefined on destroy.)

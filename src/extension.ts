@@ -54,15 +54,17 @@ export function activate(context: vscode.ExtensionContext) {
       const tempFile = vscode.Uri.joinPath(
         context.extensionUri,
         "dependency-tree.dot"
-      ).path;
+      ).fsPath;
       const currentDir =
         vscode.workspace?.workspaceFolders !== undefined
-          ? vscode.workspace.workspaceFolders[0].uri.path
+          ? vscode.workspace.workspaceFolders[0].uri
           : undefined;
 
-      if (!currentDir) {
+      if (!currentDir?.fsPath) {
         vscode.window.showErrorMessage("Something went wrong!");
       }
+
+      const pomLocation = vscode.Uri.joinPath(currentDir!, "pom.xml").fsPath;
 
       currentPanel = vscode.window.createWebviewPanel(
         "openWebview", // Identifies the type of the webview. Used internally
@@ -83,7 +85,7 @@ export function activate(context: vscode.ExtensionContext) {
         await execShell(`java --version`);
         await execShell(`mvn --version`);
         await execShell(
-          `mvn -f ${currentDir}/pom.xml dependency:tree -DoutputFile=${tempFile} -DoutputType=dot`
+          `mvn -f ${pomLocation} dependency:tree -DoutputFile=${tempFile} -DoutputType=dot`
         );
 
         var digraph = dot.read(fs.readFileSync(tempFile, "UTF-8"));
