@@ -6,6 +6,8 @@ This is the "maven-dependency-explorer" vscode extension.
 
 This plugin help us to visualize the maven dependency. Along with filtering it.
 
+![Alt Text](./feature-walkthrough.gif)
+
 ## Requirements
 
 Works for Java maven project. Maven path is configured!
