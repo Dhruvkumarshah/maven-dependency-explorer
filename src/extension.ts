@@ -82,8 +82,6 @@ export function activate(context: vscode.ExtensionContext) {
       );
 
       try {
-        await execShell(`java --version`);
-        await execShell(`mvn --version`);
         await execShell(
           `mvn -f ${pomLocation} dependency:tree -DoutputFile=${tempFile} -DoutputType=dot`
         );
