@@ -19,13 +19,9 @@ function updateGrpah(index: any, data: any) {
   const key = index;
 
   Object.keys(data).forEach((res) => {
-    Object.keys(data[res])
-      .filter((res1) => {
-        return res1 === key;
-      })
-      .forEach((res2) => {
-        data[res][key] = data[res2];
-      });
+    if (data[res][key] !== undefined) {
+      data[res][key] = data[key];
+    }
   });
 }
 
@@ -41,11 +37,9 @@ export function activate(context: vscode.ExtensionContext) {
   let disposableExplorer = vscode.commands.registerCommand(
     "maven-dependency-explorer.exploer",
     async () => {
-      const columnToShowIn = vscode.window.activeTextEditor
-        ? vscode.window.activeTextEditor.viewColumn
-        : undefined;
 
       if (currentPanel) {
+        const columnToShowIn = vscode.window.activeTextEditor?.viewColumn;
         // If we already have a panel, show it in the target column
         currentPanel.reveal(columnToShowIn);
         return;
