@@ -28,7 +28,7 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.13
 
-- @Tordek947 added maven executable option.
+- [@Tordek947]( https://github.com/Tordek947 ) added maven executable option.
 
 ### 1.0.10
 
