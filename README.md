@@ -26,6 +26,10 @@ None.
 
 Users appreciate release notes as you update your extension.
 
+### 1.0.13
+
+- @Tordek947 added maven executable option.
+
 ### 1.0.10
 
 - bug fixed (path was not working correctly for Window.)
