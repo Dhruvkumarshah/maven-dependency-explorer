@@ -49,6 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
         context.extensionUri,
         "dependency-tree.dot"
       ).fsPath;
+      
       const currentDir =
         vscode.workspace?.workspaceFolders !== undefined
           ? vscode.workspace.workspaceFolders[0].uri
@@ -57,11 +58,14 @@ export function activate(context: vscode.ExtensionContext) {
       if (!currentDir?.fsPath) {
         vscode.window.showErrorMessage("Something went wrong!");
       }
+      var pomLocation = vscode.Uri.joinPath(currentDir!, "pom.xml").fsPath;
+      if (vscode.window.activeTextEditor?.document?.fileName) {
+        pomLocation = vscode.window.activeTextEditor?.document?.fileName;
+      }
 
       const mavenExecutableSettings = vscode.workspace.getConfiguration("maven.executable");
       const mavenExecutableOptions = mavenExecutableSettings.get<string>("options") || "";
       const mavenExecutable = mavenExecutableSettings.get<string>("path") || "mvn";
-      const pomLocation = vscode.Uri.joinPath(currentDir!, "pom.xml").fsPath;
 
       currentPanel = vscode.window.createWebviewPanel(
         "openWebview", // Identifies the type of the webview. Used internally
