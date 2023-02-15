@@ -60,6 +60,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       const mavenExecutableSettings = vscode.workspace.getConfiguration("maven.executable");
       const mavenExecutableOptions = mavenExecutableSettings.get<string>("options") || "";
+      const mavenExecutable = mavenExecutableSettings.get<string>("path") || "mvn";
       const pomLocation = vscode.Uri.joinPath(currentDir!, "pom.xml").fsPath;
 
       currentPanel = vscode.window.createWebviewPanel(
@@ -79,7 +80,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       try {
         await execShell(
-          `mvn ${mavenExecutableOptions} -f ${pomLocation} dependency:tree -DoutputFile=${tempFile} -DoutputType=dot`
+          `${mavenExecutable} ${mavenExecutableOptions} -f ${pomLocation} dependency:tree -DoutputFile=${tempFile} -DoutputType=dot`
         );
 
         var digraph = dot.read(fs.readFileSync(tempFile, "UTF-8"));
