@@ -3,7 +3,7 @@
   "displayName": "Maven dependency explorer",
   "description": "Explore depency of java maven project",
   "repository": "https://github.com/Dhruvkumarshah/maven-dependency-explorer.git",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.57.0"

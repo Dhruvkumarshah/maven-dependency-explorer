@@ -26,6 +26,10 @@ None.
 
 Users appreciate release notes as you update your extension.
 
+### 1.0.16
+
+- Added handling for "Webview is disposed"
+
 ### 1.0.15
 
 - Fixed minor bug

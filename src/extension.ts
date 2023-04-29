@@ -37,7 +37,6 @@ export function activate(context: vscode.ExtensionContext) {
   let disposableExplorer = vscode.commands.registerCommand(
     "maven-dependency-explorer.exploer",
     async () => {
-
       if (currentPanel) {
         const columnToShowIn = vscode.window.activeTextEditor?.viewColumn;
         // If we already have a panel, show it in the target column
@@ -49,7 +48,7 @@ export function activate(context: vscode.ExtensionContext) {
         context.extensionUri,
         "dependency-tree.dot"
       ).fsPath;
-      
+
       const currentDir =
         vscode.workspace?.workspaceFolders !== undefined
           ? vscode.workspace.workspaceFolders[0].uri
@@ -59,13 +58,18 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showErrorMessage("Something went wrong!");
       }
       var pomLocation = vscode.Uri.joinPath(currentDir!, "pom.xml").fsPath;
-      if (vscode.window.activeTextEditor?.document?.fileName?.endsWith('pom.xml')) {
+      if (
+        vscode.window.activeTextEditor?.document?.fileName?.endsWith("pom.xml")
+      ) {
         pomLocation = vscode.window.activeTextEditor?.document?.fileName;
       }
 
-      const mavenExecutableSettings = vscode.workspace.getConfiguration("maven.executable");
-      const mavenExecutableOptions = mavenExecutableSettings.get<string>("options") || "";
-      const mavenExecutable = mavenExecutableSettings.get<string>("path") || "mvn";
+      const mavenExecutableSettings =
+        vscode.workspace.getConfiguration("maven.executable");
+      const mavenExecutableOptions =
+        mavenExecutableSettings.get<string>("options") || "";
+      const mavenExecutable =
+        mavenExecutableSettings.get<string>("path") || "mvn";
 
       currentPanel = vscode.window.createWebviewPanel(
         "openWebview", // Identifies the type of the webview. Used internally
@@ -80,6 +84,15 @@ export function activate(context: vscode.ExtensionContext) {
       currentPanel.webview.html = getWebviewContent(
         currentPanel.webview,
         context.extensionUri
+      );
+
+      // Reset when the current panel is closed
+      currentPanel.onDidDispose(
+        () => {
+          currentPanel = undefined;
+        },
+        null,
+        context.subscriptions
       );
 
       try {
