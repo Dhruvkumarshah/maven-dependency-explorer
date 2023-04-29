@@ -26,6 +26,11 @@ None.
 
 Users appreciate release notes as you update your extension.
 
+### 1.0.14
+
+- [@m-pavel]( https://github.com/m-pavel ) fixed issue to open pom.xml from current editor.
+- Ran npm audit
+
 ### 1.0.13
 
 - [@Tordek947]( https://github.com/Tordek947 ) added maven executable option.
