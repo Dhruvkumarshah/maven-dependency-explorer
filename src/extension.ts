@@ -59,7 +59,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showErrorMessage("Something went wrong!");
       }
       var pomLocation = vscode.Uri.joinPath(currentDir!, "pom.xml").fsPath;
-      if (vscode.window.activeTextEditor?.document?.fileName) {
+      if (vscode.window.activeTextEditor?.document?.fileName?.endsWith('pom.xml')) {
         pomLocation = vscode.window.activeTextEditor?.document?.fileName;
       }
 
